@@ -1,8 +1,10 @@
-#include <opencv2/opencv.hpp>
+#include "video_player.h"
 #include <iostream>
 
 int main(int argc , char** argv) {
 
-    std::cout << "cv is linked.\n";
+    VideoProcessor::VideoPlayer player("../test.mp4");
+    player.run();
+
     return 0;
 }
