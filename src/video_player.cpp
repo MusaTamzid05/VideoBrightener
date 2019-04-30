@@ -5,9 +5,10 @@
 
 namespace VideoProcessor {
 
-    VideoPlayer::VideoPlayer(const std::string& path , int brightness):
+    VideoPlayer::VideoPlayer(const std::string& path , int brightness , int frame_rate):
         cap(path),
-    brightness(brightness){
+        brightness(brightness) ,
+        frame_rate(frame_rate) {
 
         if(!cap.isOpened()) {
             std::cerr << "Error loading " << path << "\n";
@@ -25,9 +26,9 @@ namespace VideoProcessor {
         int frame_width = cap.get(cv::CAP_PROP_FRAME_WIDTH);
         int frame_height = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
 
-        cv::VideoWriter writer("test.avi" ,
+        cv::VideoWriter writer("output.avi" ,
                 cv::VideoWriter::fourcc('M' , 'J' , 'P' , 'G'),
-                1.0,
+                frame_rate,
                 cv::Size(frame_width , frame_height));
 
         while(running) {
@@ -49,6 +50,8 @@ namespace VideoProcessor {
                 running = false;
 
         }
+
+        std::cout << "Complete.\n";
     }
 
     void VideoPlayer::show_frame(const cv::Mat& frame , const std::string& name) {

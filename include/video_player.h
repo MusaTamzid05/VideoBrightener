@@ -11,7 +11,7 @@ namespace VideoProcessor  {
 
         public:
 
-            VideoPlayer(const std::string& path , int brightness);
+            VideoPlayer(const std::string& path , int brightness , int frame_rate = 24);
             virtual ~VideoPlayer() {}
 
             void run();
@@ -25,6 +25,8 @@ namespace VideoProcessor  {
             cv::VideoCapture cap;
             bool running;
             int brightness;
+
+            int frame_rate;
 
     };
 
