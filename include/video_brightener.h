@@ -7,12 +7,12 @@
 namespace VideoProcessor  {
 
 
-    class VideoPlayer {
+    class VideoBrightener {
 
         public:
 
-            VideoPlayer(const std::string& path , int brightness , int frame_rate = 24);
-            virtual ~VideoPlayer() {}
+            VideoBrightener(const std::string& path , int brightness , int frame_rate = 24);
+            virtual ~VideoBrightener() {}
 
             void run();
 

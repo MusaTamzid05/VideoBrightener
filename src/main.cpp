@@ -1,4 +1,4 @@
-#include "video_player.h"
+#include "video_brightener.h"
 #include <iostream>
 
 int main(int argc , char** argv) {
@@ -18,7 +18,7 @@ int main(int argc , char** argv) {
         brightness = 50;
 
 
-    VideoProcessor::VideoPlayer player(path , brightness);
+    VideoProcessor::VideoBrightener player(path , brightness);
     player.run();
 
     return 0;

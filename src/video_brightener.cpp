@@ -1,11 +1,11 @@
-#include "video_player.h"
+#include "video_brightener.h"
 
 #include <opencv2/highgui.hpp>
 #include <iostream>
 
 namespace VideoProcessor {
 
-    VideoPlayer::VideoPlayer(const std::string& path , int brightness , int frame_rate):
+    VideoBrightener::VideoBrightener(const std::string& path , int brightness , int frame_rate):
         cap(path),
         brightness(brightness) ,
         frame_rate(frame_rate) {
@@ -18,7 +18,7 @@ namespace VideoProcessor {
         running = true;
     }
 
-    void VideoPlayer::run() {
+    void VideoBrightener::run() {
         
         cv::Mat frame;
         cv::Mat processed_frame;
@@ -54,14 +54,14 @@ namespace VideoProcessor {
         std::cout << "Complete.\n";
     }
 
-    void VideoPlayer::show_frame(const cv::Mat& frame , const std::string& name) {
+    void VideoBrightener::show_frame(const cv::Mat& frame , const std::string& name) {
 
         cv::namedWindow(name, cv::WINDOW_NORMAL);
         cv::imshow(name, frame);
     }
 
     
-    void VideoPlayer::process(const cv::Mat& frame , cv::Mat& processed_frame) {
+    void VideoBrightener::process(const cv::Mat& frame , cv::Mat& processed_frame) {
 
         processed_frame = frame.clone();
         processed_frame.convertTo(processed_frame , -1 , 1 , brightness);
