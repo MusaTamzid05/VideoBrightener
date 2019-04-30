@@ -5,9 +5,8 @@
 
 namespace VideoProcessor {
 
-    VideoPlayer::VideoPlayer(const std::string& path , const std::string& window_name):
-        cap(path) ,
-        window_name(window_name) {
+    VideoPlayer::VideoPlayer(const std::string& path):
+        cap(path) {
 
         if(!cap.isOpened()) {
             std::cerr << "Error loading " << path << "\n";
@@ -18,10 +17,12 @@ namespace VideoProcessor {
     }
 
     void VideoPlayer::run() {
+        
+        cv::Mat frame;
+        cv::Mat processed_frame;
 
         while(running) {
 
-            cv::Mat frame;
             cap >> frame;
 
             if(frame.empty()) {
@@ -29,7 +30,10 @@ namespace VideoProcessor {
                 continue;
             }
 
-            show_frame(frame);
+            process(frame , processed_frame);
+            show_frame(frame , "Original");
+            show_frame(processed_frame , "Brighter");
+
 
             if(char(cv::waitKey(4)) == 'q')
                 running = false;
@@ -37,9 +41,16 @@ namespace VideoProcessor {
         }
     }
 
-    void VideoPlayer::show_frame(const cv::Mat& frame) {
+    void VideoPlayer::show_frame(const cv::Mat& frame , const std::string& name) {
 
-        cv::namedWindow(window_name , cv::WINDOW_NORMAL);
-        cv::imshow(window_name , frame);
+        cv::namedWindow(name, cv::WINDOW_NORMAL);
+        cv::imshow(name, frame);
+    }
+
+    
+    void VideoPlayer::process(const cv::Mat& frame , cv::Mat& processed_frame) {
+
+        processed_frame = frame.clone();
+        processed_frame.convertTo(processed_frame , -1 , 1 , 50);
     }
 }

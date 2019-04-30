@@ -11,20 +11,20 @@ namespace VideoProcessor  {
 
         public:
 
-            VideoPlayer(const std::string& path , const std::string& window_name = "Video Player");
+            VideoPlayer(const std::string& path);
             virtual ~VideoPlayer() {}
 
             void run();
 
-        protected:
+        private:
 
-            virtual void process() {}
+
+            void process(const cv::Mat& frame , cv::Mat& processed_frame);
+            void show_frame(const cv::Mat& frame , const std::string& name);
 
             cv::VideoCapture cap;
             bool running;
-            std::string window_name;
 
-            void show_frame(const cv::Mat& frame);
     };
 
 };
